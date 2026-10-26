@@ -30,8 +30,8 @@ jobs:
         if: github.event_name == 'push'
         uses: docker/build-push-action@v6
         with:
-          context: ./STUDENTAPI-SPRINGBOOT
-          file: ./STUDENTAPI-SPRINGBOOT/backend.Dockerfile
+          context: ./CrudServiceProject
+          file: ./CrudServiceProject/backend.Dockerfile
           push: true
           tags: saikota170807/docker-backend-2400033053:latest
 
@@ -39,7 +39,7 @@ jobs:
         if: github.event_name == 'push'
         uses: docker/build-push-action@v6
         with:
-          context: ./STUDENTAPI-REACT
-          file: ./STUDENTAPI-REACT/frontend.Dockerfile
+          context: ./frontend
+          file: ./frontend/frontend.Dockerfile
           push: true
           tags: saikota170807/docker-frontend-2400033053:latest
