@@ -43,4 +43,3 @@ jobs:
           file: ./STUDENTAPI-REACT/frontend.Dockerfile
           push: true
           tags: saikota170807/docker-frontend-2400033053:latest
-```
