@@ -1,0 +1,91 @@
+
+package com.klef.soa.exam.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.klef.soa.exam.entity.FurnitureRental;
+import com.klef.soa.exam.service.FurnitureRentalService;
+
+@RestController
+@RequestMapping("/furniture")
+public class FurnitureRentalController
+{
+    @Autowired
+    private FurnitureRentalService service;
+
+    @GetMapping("/")
+    public String test()
+    {
+        return "Furniture Rental Service is Running";
+    }
+
+    @PostMapping("/add")
+    public ResponseEntity<FurnitureRental> addFurnitureRental(@RequestBody FurnitureRental furnitureRental)
+    {
+        FurnitureRental fr = service.addFurnitureRental(furnitureRental);
+
+        return ResponseEntity.status(201).body(fr);
+    }
+
+    @GetMapping("/displayall")
+    public ResponseEntity<List<FurnitureRental>> displayAllFurnitureRentals()
+    {
+        List<FurnitureRental> rentals = service.displayAllFurnitureRentals();
+
+        return ResponseEntity.status(200).body(rentals);
+    }
+    
+
+	@GetMapping("/displaybyid/{id}")
+	public ResponseEntity<FurnitureRental> displayFurnitureRentalById(@PathVariable Long id)
+	{
+	    FurnitureRental fr = service.displayFurnitureRentalById(id);
+	
+	    if (fr != null)
+	    {
+	        return ResponseEntity.ok(fr);
+	    }
+	    else
+	    {
+	        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+	    }
+	}
+	
+	@PutMapping("/update/{id}")
+	public ResponseEntity<FurnitureRental> updateFurnitureRental(
+	        @PathVariable Long id,
+	        @RequestBody FurnitureRental furnitureRental)
+	{
+	    FurnitureRental fr = service.updateFurnitureRental(id, furnitureRental);
+	
+	    if (fr != null)
+	    {
+	        return ResponseEntity.ok(fr);
+	    }
+	    else
+	    {
+	        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+	    }
+	}
+
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deleteFurnitureRentalById(@PathVariable Long id)
+    {
+        String message = service.deleteFurnitureRentalById(id);
+
+        return ResponseEntity.ok(message);
+    }
+}

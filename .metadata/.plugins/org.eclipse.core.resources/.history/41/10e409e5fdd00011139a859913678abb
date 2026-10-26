@@ -1,0 +1,47 @@
+
+package com.klef.soa.exam.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.klef.soa.exam.entity.FurnitureRental;
+import com.klef.soa.exam.repository.FurnitureRentalRepository;
+
+@Service
+public class FurnitureRentalServiceImpl implements FurnitureRentalService
+{
+    @Autowired
+    private FurnitureRentalRepository repo;
+
+    @Override
+    public FurnitureRental addFurnitureRental(FurnitureRental furnitureRental)
+    {
+        return repo.save(furnitureRental);
+    }
+
+    @Override
+    public List<FurnitureRental> displayAllFurnitureRentals()
+    {
+        return repo.findAll();
+    }
+
+    @Override
+    public String deleteFurnitureRentalById(Long id)
+    {
+        boolean status = repo.existsById(id);
+
+        if (status)
+        {
+            repo.deleteById(id);
+            return "Furniture Rental Deleted Successfully";
+        }
+        else
+        {
+            return "Furniture Rental ID Not Found";
+        }
+    }
+    
+    
+}
