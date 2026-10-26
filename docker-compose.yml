@@ -25,6 +25,9 @@ services:
       - springboot-postgres-net
 
   frontend:
+    build:
+      context: ./frontend
+      dockerfile: frontend.Dockerfile
     image: saikota170807/docker-frontend-2400033053:latest
     container_name: docker-react
     ports:
@@ -40,3 +43,4 @@ volumes:
 
 networks:
   springboot-postgres-net:
+
